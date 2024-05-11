@@ -36,9 +36,8 @@ public class UserController {
 
     //用户个人签名
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public ApiRestResponse updateInfo(@RequestParam("UpdateInfo") String updateInfo,
-                                      HttpSession session) {
-        userService.updateInfo(updateInfo,session);
+    public ApiRestResponse updateInfo(@RequestParam("UpdateInfo") String updateInfo) {
+        userService.updateInfo(updateInfo);
         return ApiRestResponse.success();
     }
 

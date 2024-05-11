@@ -11,7 +11,7 @@ public interface UserService {
     User login(String userName, String passWord) throws NoSuchAlgorithmException;
 
 
-    void updateInfo(String updateInfo, HttpSession session);
+    void updateInfo(String updateInfo);
 
     boolean checkAdmin(User user);
 }
