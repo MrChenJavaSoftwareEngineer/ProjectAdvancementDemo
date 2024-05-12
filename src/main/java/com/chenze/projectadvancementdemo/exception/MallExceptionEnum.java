@@ -14,7 +14,9 @@ public enum MallExceptionEnum {
     UPDATE_FAIL(10007, "更新失败"),
     USER_UPDATE_FAIL(10008, "用户注册失败"),
     NEED_REGISTER(10009, "需要注册"),
-    NEED_LOGIN(10010, "需要登录");
+    NEED_LOGIN(10010, "需要登录"),
+    TOKEN_EXPIRE(10011, "token过期"),
+    TOKEN_WRONG(10012, "token解析失败");
     //异常码
     Integer code;
     //异常信息
