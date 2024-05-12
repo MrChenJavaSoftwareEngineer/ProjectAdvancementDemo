@@ -22,7 +22,11 @@ public enum MallExceptionEnum {
     EMAIL_ADDRESS_EXIST(10015, "邮箱地址已被注册"),
     VERIFICATION_CODE_GENERATION_ERROR(10016, "验证码生成错误"),
     CATEGORY_EXISTED(10017, "目录已存在"),
-    CATEGORY_NOT_EXISTED(10018, "目录不存在");
+    CATEGORY_NOT_EXISTED(10018, "目录不存在"),
+    MAKE_FILE_FAIL(10019, "创建文件失败"),
+    PRODUCT_NOT_EXIST(10020, "商品不存在"),
+    DELETE_FAIL(10021, "删除失败"),
+    PRODUCT_EXIST(10022, "商品已存在");
     //异常码
     Integer code;
     //异常信息
