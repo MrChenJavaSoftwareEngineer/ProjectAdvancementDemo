@@ -20,7 +20,9 @@ public enum MallExceptionEnum {
     CODE_ERROR(10013, "验证码错误~"),
     EMAIL_ADDRESS_ERROR(10014, "邮箱地址错误"),
     EMAIL_ADDRESS_EXIST(10015, "邮箱地址已被注册"),
-    VERIFICATION_CODE_GENERATION_ERROR(10016, "验证码生成错误");
+    VERIFICATION_CODE_GENERATION_ERROR(10016, "验证码生成错误"),
+    CATEGORY_EXISTED(10017, "目录已存在"),
+    CATEGORY_NOT_EXISTED(10018, "目录不存在");
     //异常码
     Integer code;
     //异常信息
