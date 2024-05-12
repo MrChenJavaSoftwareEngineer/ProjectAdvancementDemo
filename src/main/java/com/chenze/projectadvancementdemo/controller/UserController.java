@@ -6,7 +6,10 @@ import com.chenze.projectadvancementdemo.common.ApiRestResponse;
 import com.chenze.projectadvancementdemo.common.Constant;
 import com.chenze.projectadvancementdemo.exception.MallExceptionEnum;
 import com.chenze.projectadvancementdemo.model.pojo.User;
+import com.chenze.projectadvancementdemo.service.EmailService;
 import com.chenze.projectadvancementdemo.service.UserService;
+import com.chenze.projectadvancementdemo.service.impl.UserServiceImpl;
+import com.chenze.projectadvancementdemo.untils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +22,37 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EmailService emailService;
+
+
     String token=null;
 
     //用户注册
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ApiRestResponse register(@RequestParam("UserName") String userName,
-                                    @RequestParam("PassWord") String passWord) throws NoSuchAlgorithmException {
-        userService.register(userName, passWord);
+                                    @RequestParam("PassWord") String passWord,
+                                    @RequestParam("VerificationCode") String verificationCode) throws NoSuchAlgorithmException {
+        userService.register(userName, passWord,verificationCode);
         return ApiRestResponse.success();
+    }
+
+    //发送验证码
+    @RequestMapping(value = "/sendEmail" , method = RequestMethod.POST)
+    public ApiRestResponse emailAddress(@RequestParam("EmailAddress") String emailAddress){
+        boolean result = EmailUtil.isValidEmailAddress(emailAddress);
+        if (result){
+            boolean checkResult = userService.checkEmailRegister(emailAddress);
+            if (!checkResult){
+                return ApiRestResponse.error(MallExceptionEnum.EMAIL_ADDRESS_EXIST);
+            }
+             String verificationCode = userService.getVerificationCode();
+            emailService.sendSimpleMessage(emailAddress,Constant.EMAIL_SUBJECT,
+                    "您的验证码："+verificationCode);
+            return ApiRestResponse.success();
+        }else {
+            return ApiRestResponse.error(MallExceptionEnum.EMAIL_ADDRESS_ERROR);
+        }
     }
 
     //用户登录
@@ -53,16 +79,15 @@ public class UserController {
 
     //用户登出
     @RequestMapping(value = "/user/loginOut", method = RequestMethod.POST)
-    public ApiRestResponse loginOut(HttpSession session) {
-        session.removeAttribute(Constant.USER_KEY);
+    public ApiRestResponse loginOut() {
+        UserServiceImpl.loginOut=true;
         return ApiRestResponse.success();
     }
 
     //管理员登录
     @RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
     public ApiRestResponse adminLogin(@RequestParam("AdminName") String adminName,
-                                      @RequestParam("PassWord") String passWord,
-                                      HttpSession session) throws NoSuchAlgorithmException {
+                                      @RequestParam("PassWord") String passWord) throws NoSuchAlgorithmException {
         User user = userService.login(adminName,passWord);
         if (!userService.checkAdmin(user)){
             return ApiRestResponse.error(MallExceptionEnum.NEED_ADMIN_ROLE);

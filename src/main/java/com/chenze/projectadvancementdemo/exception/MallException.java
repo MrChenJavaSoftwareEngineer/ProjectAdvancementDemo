@@ -7,7 +7,8 @@ public class MallException extends RuntimeException{
     final Integer code;
     final String msg;
 
-    public MallException(Integer code,String msg){
+
+    public MallException(Integer code, String msg){
         this.code=code;
         this.msg=msg;
     }

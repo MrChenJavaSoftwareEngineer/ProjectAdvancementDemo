@@ -10,12 +10,12 @@ import com.chenze.projectadvancementdemo.common.Constant;
 import com.chenze.projectadvancementdemo.exception.MallException;
 import com.chenze.projectadvancementdemo.exception.MallExceptionEnum;
 import com.chenze.projectadvancementdemo.model.pojo.User;
+import com.chenze.projectadvancementdemo.service.impl.UserServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -43,7 +43,7 @@ public class UserFilter implements Filter {
         }catch (JWTDecodeException e){
             throw new IOException(new MallException(MallExceptionEnum.TOKEN_WRONG));
         }
-        if (currentUser==null){
+        if (currentUser==null|| UserServiceImpl.loginOut){
             PrintWriter out = new HttpServletResponseWrapper
                     ((HttpServletResponse) servletResponse).getWriter();
             out.write("{\n"

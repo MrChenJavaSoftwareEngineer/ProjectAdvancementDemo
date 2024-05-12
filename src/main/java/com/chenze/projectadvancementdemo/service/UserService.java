@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 
 public interface UserService {
-    void register(String userName, String passWord) throws NoSuchAlgorithmException;
+    void register(String userName, String passWord,String verificationCode) throws NoSuchAlgorithmException;
 
     User login(String userName, String passWord) throws NoSuchAlgorithmException;
 
@@ -14,4 +14,8 @@ public interface UserService {
     void updateInfo(String updateInfo);
 
     boolean checkAdmin(User user);
+
+    boolean checkEmailRegister(String emailAddress);
+
+    String getVerificationCode();
 }

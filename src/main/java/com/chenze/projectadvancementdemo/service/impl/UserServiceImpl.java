@@ -5,7 +5,9 @@ import com.chenze.projectadvancementdemo.exception.MallExceptionEnum;
 import com.chenze.projectadvancementdemo.filter.UserFilter;
 import com.chenze.projectadvancementdemo.model.dao.UserMapper;
 import com.chenze.projectadvancementdemo.model.pojo.User;
+import com.chenze.projectadvancementdemo.service.EmailService;
 import com.chenze.projectadvancementdemo.service.UserService;
+import com.chenze.projectadvancementdemo.untils.EmailUtil;
 import com.chenze.projectadvancementdemo.untils.MD5Until;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,23 @@ import java.security.NoSuchAlgorithmException;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    EmailService emailService;
+   public static boolean loginOut= false;
+
+   static String verificationCode=null;
+   static long start=0;
+   static long end=0;
 
     @Override
-    public void register(String userName, String passWord) throws NoSuchAlgorithmException {
+    public void register(String userName, String passWord , String verification) throws NoSuchAlgorithmException {
+        end=System.currentTimeMillis();
+        if ((end-start)>60*1000){
+            throw new MallException(MallExceptionEnum.CODE_ERROR);
+        }
+        if (!verification.equals(verificationCode)){
+            throw new MallException(MallExceptionEnum.CODE_ERROR);
+        }
         if (StringUtils.isEmpty(userName)){
             throw new MallException(MallExceptionEnum.NEED_USER_NAME);
         }
@@ -60,6 +76,7 @@ public class UserServiceImpl implements UserService {
             throw new MallException(MallExceptionEnum.PASSWORD_FAIL);
         }
         result.setPassword(null);
+        loginOut=false;
         return result;
     }
 
@@ -76,5 +93,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkAdmin(User user) {
         return user.getRole().equals(2);
+    }
+
+    @Override
+    public boolean checkEmailRegister(String emailAddress) {
+        User result = userMapper.selectByEmailAddress(emailAddress);
+        if (result==null){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String getVerificationCode() {
+        start=System.currentTimeMillis();
+          verificationCode= EmailUtil.genVerificationCode();
+         if (verificationCode==null){//Verification code generation error
+             throw new MallException(MallExceptionEnum.VERIFICATION_CODE_GENERATION_ERROR);
+         }
+        return verificationCode;
     }
 }

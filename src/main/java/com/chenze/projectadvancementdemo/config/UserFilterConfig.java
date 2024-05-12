@@ -17,7 +17,7 @@ public class UserFilterConfig {
     public FilterRegistrationBean filterRegistrationBean(){
         FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
         filterFilterRegistrationBean.setFilter(userFilter());
-        filterFilterRegistrationBean.addUrlPatterns("/User/*");
+        filterFilterRegistrationBean.addUrlPatterns("/user/*");
         filterFilterRegistrationBean.setName("UserFilterConfig");
         return filterFilterRegistrationBean;
     }

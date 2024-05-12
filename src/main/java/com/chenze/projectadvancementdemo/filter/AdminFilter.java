@@ -11,13 +11,13 @@ import com.chenze.projectadvancementdemo.exception.MallException;
 import com.chenze.projectadvancementdemo.exception.MallExceptionEnum;
 import com.chenze.projectadvancementdemo.model.pojo.User;
 import com.chenze.projectadvancementdemo.service.UserService;
+import com.chenze.projectadvancementdemo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -48,7 +48,7 @@ public class AdminFilter implements Filter {
         }catch (JWTDecodeException e){
             throw new IOException(new MallException(MallExceptionEnum.TOKEN_WRONG));
         }
-        if (currentAdmin==null){
+        if (currentAdmin==null||UserServiceImpl.loginOut){
               PrintWriter out = new HttpServletResponseWrapper
                       ((HttpServletResponse) servletResponse).getWriter();
              out.write("{\n"

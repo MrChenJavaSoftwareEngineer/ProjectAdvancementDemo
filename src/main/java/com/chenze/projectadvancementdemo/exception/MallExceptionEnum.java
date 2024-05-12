@@ -16,7 +16,11 @@ public enum MallExceptionEnum {
     NEED_REGISTER(10009, "需要注册"),
     NEED_LOGIN(10010, "需要登录"),
     TOKEN_EXPIRE(10011, "token过期"),
-    TOKEN_WRONG(10012, "token解析失败");
+    TOKEN_WRONG(10012, "token解析失败"),
+    CODE_ERROR(10013, "验证码错误~"),
+    EMAIL_ADDRESS_ERROR(10014, "邮箱地址错误"),
+    EMAIL_ADDRESS_EXIST(10015, "邮箱地址已被注册"),
+    VERIFICATION_CODE_GENERATION_ERROR(10016, "验证码生成错误");
     //异常码
     Integer code;
     //异常信息
