@@ -26,7 +26,11 @@ public enum MallExceptionEnum {
     MAKE_FILE_FAIL(10019, "创建文件失败"),
     PRODUCT_NOT_EXIST(10020, "商品不存在"),
     DELETE_FAIL(10021, "删除失败"),
-    PRODUCT_EXIST(10022, "商品已存在");
+    PRODUCT_EXIST(10022, "商品已存在"),
+    NOT_SALE(10023, "商品不进行售卖~"),
+    LOWS_STOCK(10024, "商品库存不足"),
+    CART_NOT_EXISTED(10025, "购物车不存在"),
+    CART_EXISTED(10026, "购物车已存在");
     //异常码
     Integer code;
     //异常信息

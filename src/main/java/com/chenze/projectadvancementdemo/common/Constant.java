@@ -21,6 +21,10 @@ public class Constant {
     public static final String WATER_MARK_JPG = "waterMark.jpg";
     public static final float IMAGE_OPACITY = 0.5f;
 
+    public interface ProductStatus{
+        Integer NOT_SALE=0;
+    }
+
     public interface ProductListOrderBy{
        Set<String> PRICE_ASC_DESC=Sets.newHashSet("price asc","price desc");
     }
