@@ -30,7 +30,17 @@ public enum MallExceptionEnum {
     NOT_SALE(10023, "商品不进行售卖~"),
     LOWS_STOCK(10024, "商品库存不足"),
     CART_NOT_EXISTED(10025, "购物车不存在"),
-    CART_EXISTED(10026, "购物车已存在");
+    CART_EXISTED(10026, "购物车已存在"),
+    NOT_ORDER(10027, "没有订单"),
+    CANCEL_FAIL(10028, "取消订单失败"),
+    FINISH_ERROR(10029, "订单完成失败"),
+    NEED_NOT_PAY(10030, "订单不是没支付状态"),
+    PAY_FAIL(10031, "支付错误"),
+    FINISH_FAIL(10032, "订单完结失败"),
+    NOT_DELIVER(10033, "订单不能进行发送"),
+    DELIVER_FAIL(10034, "订单发送失败"),
+    INSERT_FAILED(10035, "插入失败"),
+    REQUEST_PARAM_ERROR(10036, "参数错误");
     //异常码
     Integer code;
     //异常信息

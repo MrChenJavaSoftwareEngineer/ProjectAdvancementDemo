@@ -9,13 +9,14 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.apache.poi.hpsf.Thumbnail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-
+@Service
 public class FileUploadServiceImpl implements FileUploadService {
     String ui="127.0.0.1:8081";
     @Autowired

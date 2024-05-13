@@ -21,6 +21,83 @@ public class Constant {
     public static final String WATER_MARK_JPG = "waterMark.jpg";
     public static final float IMAGE_OPACITY = 0.5f;
 
+    public static String orderStatusName(Integer statusCode){
+        switch (statusCode){
+            case 0:
+                return OrderStatus.CANCEL.getStatusCodeName();
+            case 10:
+                return OrderStatus.NOT_PAY.getStatusCodeName();
+            case 20:
+                return OrderStatus.PAY.getStatusCodeName();
+            case 30:
+                return OrderStatus.DELIVER.getStatusCodeName();
+            case 40:
+                return OrderStatus.FINISH.getStatusCodeName();
+            default:
+                return null;
+        }
+    }
+
+
+
+    public enum OrderStatus{
+        CANCEL(0,"订单取消"),
+        NOT_PAY(10,"订单未支付"),
+        PAY(20,"订单已支付"),
+        DELIVER(30,"订单货物进行发送中"),
+        FINISH(40,"订单已完成");
+        private Integer statusCode;
+        private String statusCodeName;
+
+        OrderStatus(Integer statusCode, String statusCodeName) {
+            this.statusCode = statusCode;
+            this.statusCodeName = statusCodeName;
+        }
+
+        public Integer getStatusCode() {
+            return statusCode;
+        }
+
+        public void setStatusCode(Integer statusCode) {
+            this.statusCode = statusCode;
+        }
+
+        public String getStatusCodeName() {
+            return statusCodeName;
+        }
+
+        public void setStatusCodeName(String statusCodeName) {
+            this.statusCodeName = statusCodeName;
+        }
+    }
+
+    public enum CartSelected{
+        CART_SELECTED(1,"已勾选"),
+        CART_NOT_SELECTED(0,"未勾选");
+        private Integer selectedCode;
+        private String selectedMsg;
+
+        CartSelected(Integer selectedCode, String selectedMsg) {
+            this.selectedCode = selectedCode;
+            this.selectedMsg = selectedMsg;
+        }
+
+        public Integer getSelectedCode() {
+            return selectedCode;
+        }
+
+        public void setSelectedCode(Integer selectedCode) {
+            this.selectedCode = selectedCode;
+        }
+
+        public String getSelectedMsg() {
+            return selectedMsg;
+        }
+
+        public void setSelectedMsg(String selectedMsg) {
+            this.selectedMsg = selectedMsg;
+        }
+    }
     public interface ProductStatus{
         Integer NOT_SALE=0;
     }

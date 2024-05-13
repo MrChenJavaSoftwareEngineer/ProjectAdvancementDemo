@@ -7,6 +7,7 @@ import com.chenze.projectadvancementdemo.model.request.UpdateProductReq;
 import com.chenze.projectadvancementdemo.service.FileUploadService;
 import com.chenze.projectadvancementdemo.service.ProductService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,7 @@ public class ProductAdminController {
     FileUploadService fileUploadService;
 
     //删除商品
+    @ApiOperation("删除商品")
     @PostMapping("/admin/product/delete")
     public ApiRestResponse delete(@RequestParam("ProductId") Integer productId){
         productService.delete(productId);
@@ -35,6 +37,7 @@ public class ProductAdminController {
     }
 
     //批量上下架
+    @ApiOperation("批量上下架")
     @PostMapping("/admin/product/batchUpdateSellStatus")
     public ApiRestResponse batchUpdateSellStatus(@RequestParam("ids") Integer[] ids,
                                         @RequestParam("selectStatus") Integer selectStatus){
@@ -43,6 +46,7 @@ public class ProductAdminController {
     }
 
     //更新
+    @ApiOperation("更新")
     @PostMapping("/admin/product/update")
     public ApiRestResponse update(@Valid @RequestBody UpdateProductReq updateProductReq){
         Product product = new Product();
@@ -52,6 +56,7 @@ public class ProductAdminController {
     }
 
     //批量更新商品
+    @ApiOperation("批量更新商品")
     @PostMapping("/admin/product/updateList")
     public ApiRestResponse updateList(@Validated @RequestBody List<UpdateProductReq> updateProductReqList){
         for (UpdateProductReq updateProductReq : updateProductReqList) {
@@ -63,6 +68,7 @@ public class ProductAdminController {
     }
 
     //后台商品表
+    @ApiOperation("后台商品表")
     @PostMapping("/admin/product/list")
     public ApiRestResponse list(@RequestParam("pageNum") Integer pageNum,
                                 @RequestParam("pageSize") Integer pageSize){
@@ -71,6 +77,7 @@ public class ProductAdminController {
     }
 
     //后台上传文件
+    @ApiOperation("后台上传文件")
     @PostMapping("/admin/upload/file")
         public ApiRestResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
          String result = fileUploadService.getResult(file);
@@ -78,6 +85,7 @@ public class ProductAdminController {
     }
 
     //后台上传照片
+    @ApiOperation("后台上传照片")
     @PostMapping("/admin/upload/imageFile")
     public ApiRestResponse imageFile(@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
         String result = fileUploadService.getString(imageFile);
@@ -85,6 +93,7 @@ public class ProductAdminController {
     }
 
     //后台上传Excel商品列表
+    @ApiOperation("后台上传Excel商品列表")
     @PostMapping("/admin/upload/fileUploadOfExcel")
     public ApiRestResponse excelFile(@RequestParam("fileUploadOfExcel") MultipartFile fileUploadOfExcel) throws IOException {
       fileUploadService.fileUploadOfExcel(fileUploadOfExcel);
@@ -92,8 +101,9 @@ public class ProductAdminController {
     }
 
     //商品添加
+    @ApiOperation("商品添加")
     @PostMapping("/admin/product/add")
-    public ApiRestResponse add(@RequestBody AddProductReq addProductReq){
+    public ApiRestResponse add(@Valid @RequestBody AddProductReq addProductReq){
          Product product = new Product();
          BeanUtils.copyProperties(addProductReq,product);
         productService.add(product);

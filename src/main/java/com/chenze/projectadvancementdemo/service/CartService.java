@@ -1,6 +1,7 @@
 package com.chenze.projectadvancementdemo.service;
 
 import com.chenze.projectadvancementdemo.model.pojo.Cart;
+import com.chenze.projectadvancementdemo.model.pojo.Product;
 import com.chenze.projectadvancementdemo.model.vo.CartVO;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface CartService{
     List<CartVO> selectList(Integer select);
 
     List<CartVO> add(Cart cart);
+
+    void validProduct(Product product, Integer quantity);
 }

@@ -116,7 +116,8 @@ public class CartServiceImpl implements CartService {
         return cartVOs;
     }
 
-    private void validProduct(Product product, Integer quantity) {
+    @Override
+    public void validProduct(Product product, Integer quantity) {
         if (product==null||product.getStatus().equals(Constant.ProductStatus.NOT_SALE)){
             throw new MallException(MallExceptionEnum.NOT_SALE);
         }
